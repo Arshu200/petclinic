@@ -14,12 +14,12 @@ pipeline {
                 checkout scm
             }
         }
-        stage("Compile & install"){
-            steps{
-                sh "mvn clean compile"
-                 sh "mvn clean install"
-            }
-        }
+        // stage("Compile & install"){
+        //     steps{
+        //         sh "mvn clean compile"
+        //          sh "mvn clean install"
+        //     }
+        // }
 
         stage('Run Unit Tests') {
             steps {
@@ -32,10 +32,12 @@ pipeline {
             steps {
                 echo 'Running SonarQube Analysis'
                 withSonarQubeEnv('SonarQube') { 
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner
-                    -Dsonar.projectName=Petclinic \
-                    -Dsonar.java.binaries=. \
-                    -Dsonar.projectKey=Petclinic '''
+                    sh '''
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectName=Petclinic-App \
+                        -Dsonar.java.binaries=. \
+                        -Dsonar.projectKey=Petclinic
+                    '''
                 }
             }
         }  
