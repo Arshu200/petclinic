@@ -6,7 +6,7 @@ pipeline {
     }
    environment {
         SCANNER_HOME=tool 'sonarqubescanner'
-       SONAR_HOST_URL= 'http://54.234.26.224:9000/'
+       SONAR_HOST_URL= 'http://54.234.26.224:9000'
     }
 
     stages {
