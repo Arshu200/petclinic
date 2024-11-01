@@ -15,10 +15,10 @@ pipeline {
                 checkout scm
             }
         }
-        stage("Compile & install"){
+        stage("Compile"){
             steps{
-                // sh "mvn clean compile"
-                 sh "mvn clean install"
+                sh "mvn clean compile"
+                 // sh "mvn clean install"
             }
         }
 
@@ -26,6 +26,12 @@ pipeline {
             steps {
                 echo 'Running Maven Unit Tests'
                 sh 'mvn clean test'
+            }
+        }
+        stage("install"){
+            steps{
+                // sh "mvn clean compile"
+                 sh "mvn clean install"
             }
         }
 
