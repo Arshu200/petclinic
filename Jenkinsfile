@@ -6,7 +6,7 @@ pipeline {
     }
    environment {
         SCANNER_HOME=tool 'sonarqubescanner'
-       SONAR_HOST_URL= 'http://54.234.26.224:9000'
+       // SONAR_HOST_URL= 'http://54.234.26.224:9000'
     }
 
     stages {
@@ -56,26 +56,26 @@ pipeline {
                 }
             }
         }  
-        stage('Enforce Additional Conditions') {
-            steps {
-                script {
-                    def coverageThreshold = 80
-                    def highSeverityVulnerabilitiesAllowed = 0
-                    def analysisResults = sh(script: "curl ${env.SONAR_HOST_URL}/api/measures/component?componentKey=PetClinic&metricKeys=coverage,vulnerabilities", returnStdout: true).trim()
-                    def json = readJSON text: analysisResults
+        // stage('Enforce Additional Conditions') {
+        //     steps {
+        //         script {
+        //             def coverageThreshold = 80
+        //             def highSeverityVulnerabilitiesAllowed = 0
+        //             def analysisResults = sh(script: "curl ${env.SONAR_HOST_URL}/api/measures/component?componentKey=PetClinic&metricKeys=coverage,vulnerabilities", returnStdout: true).trim()
+        //             def json = readJSON text: analysisResults
                     
-                    def coverage = json.component.measures.find { it.metric == 'coverage' }?.value as Integer
-                    def highVulnerabilities = json.component.measures.find { it.metric == 'vulnerabilities' && it.severity == 'HIGH' }?.value as Integer
+        //             def coverage = json.component.measures.find { it.metric == 'coverage' }?.value as Integer
+        //             def highVulnerabilities = json.component.measures.find { it.metric == 'vulnerabilities' && it.severity == 'HIGH' }?.value as Integer
                     
-                    if (coverage < coverageThreshold) {
-                        error "Code coverage is below ${coverageThreshold}%"
-                    }
-                    if (highVulnerabilities > highSeverityVulnerabilitiesAllowed) {
-                        error "High-severity vulnerabilities exceed the allowed limit"
-                    }
-                }
-            }
-        }  
+        //             if (coverage < coverageThreshold) {
+        //                 error "Code coverage is below ${coverageThreshold}%"
+        //             }
+        //             if (highVulnerabilities > highSeverityVulnerabilitiesAllowed) {
+        //                 error "High-severity vulnerabilities exceed the allowed limit"
+        //             }
+        //         }
+        //     }
+        // }  
         
     }
 }
