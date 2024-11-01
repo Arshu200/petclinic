@@ -15,12 +15,12 @@ pipeline {
                 checkout scm
             }
         }
-        // stage("Compile & install"){
-        //     steps{
-        //         sh "mvn clean compile"
-        //          sh "mvn clean install"
-        //     }
-        // }
+        stage("Compile & install"){
+            steps{
+                // sh "mvn clean compile"
+                 sh "mvn clean install"
+            }
+        }
 
         stage('Run Unit Tests') {
             steps {
