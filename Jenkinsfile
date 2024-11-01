@@ -8,16 +8,16 @@ pipeline {
         SCANNER_HOME=tool 'sonarscanner'
     }
 
-    stage("Compile & install"){
-            steps{
-                sh "mvn clean compile"
-                 sh "mvn clean install"
-            }
-        }
     stages {
         stage('Clone Repository') {
             steps {
                 checkout scm
+            }
+        }
+        stage("Compile & install"){
+            steps{
+                sh "mvn clean compile"
+                 sh "mvn clean install"
             }
         }
 
